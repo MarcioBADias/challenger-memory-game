@@ -1,0 +1,67 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: rgb(61, 92, 49);
+}
+
+h1{
+    color:white;
+    text-align: center;
+    margin: 100px 0 20px 0;
+}
+
+section{
+    background: white;
+    border-radius: 20px;
+    display: flex;
+    margin: auto;
+    max-width: 40vw;
+    padding: 1rem;
+}
+
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    text-align: center;
+}
+
+.button-area{
+    margin: auto;
+    width: 100%;
+}
+
+button{
+    background: rgba(61, 92, 49, 0.2);
+    border: none;
+    border-radius: 30px;
+    margin: 20px 10px;
+    width: 40%;
+    padding: .5rem 1rem;
+}
+
+button:hover{
+    background: rgb(61, 92, 49);
+    color: white;
+}
+
+.btn-players{
+    padding: .5rem 2rem;
+    width: 15%;
+}
+
+.start-game{
+    background: rgba(34, 34, 9);
+    color:white;
+    margin-left: 30%;
+}
+
+footer{
+    color:white;
+    margin-top: 50px;
+    text-align: center;
+}
