@@ -6,6 +6,7 @@ const buttonsNumberOfPlayers = document.querySelectorAll('.btn-players')
 const selectGridArea = document.querySelector('.select-grid-area')
 const selectGridButtons = document.querySelectorAll('.select-grid-button')
 
+console.log(window)
 
 const selectItem = (item, target) => {
      item.forEach((button) => {
