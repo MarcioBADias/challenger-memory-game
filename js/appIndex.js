@@ -9,18 +9,14 @@ const selectGridButtons = document.querySelectorAll('.select-grid-button')
 
 const selectItem = (item, target) => {
      item.forEach((button) => {
-          if(button.classList.contains('clicked')){
-               button.classList.remove('clicked')
-          }
+          button.classList.contains('clicked') && button.classList.remove('clicked')
      })
      target.classList.add('clicked');
 }
 
 const printSelectedItem = (area, buttons)=> {
      area.addEventListener('click', e => {
-          if(e.target.classList.contains('btn')){
-               selectItem(buttons,e.target);
-          }
+          e.target.classList.contains('btn') && selectItem(buttons,e.target);
      })
 }
 
