@@ -4,11 +4,11 @@ const buttonsTheme = document.querySelectorAll('.theme')
 const playerArea = document.querySelector('.player-area')
 const buttonsNumberOfPlayers = document.querySelectorAll('.btn-players')
 const selectGridArea = document.querySelector('.select-grid-area')
-const selectGridButton = document.querySelectorAll('.select-grid-button')
+const selectGridButtons = document.querySelectorAll('.select-grid-button')
 
 
-const selectItem = (area, target) => {
-     area.forEach((button) => {
+const selectItem = (item, target) => {
+     item.forEach((button) => {
           if(button.classList.contains('clicked')){
                button.classList.remove('clicked')
           }
@@ -16,26 +16,17 @@ const selectItem = (area, target) => {
      target.classList.add('clicked');
 }
 
-themeArea.addEventListener('click', e => {
-     const target = e.target;
-     if(e.target.classList.contains('btn')){
-          selectItem(buttonsTheme,target);
-     }
-})
+const printSelectedItem = (area, buttons)=> {
+     area.addEventListener('click', e => {
+          if(e.target.classList.contains('btn')){
+               selectItem(buttons,e.target);
+          }
+     })
+}
 
-playerArea.addEventListener('click', e => {
-     const target = e.target;
-     if(e.target.classList.contains('btn')){
-          selectItem(buttonsNumberOfPlayers,target);
-     }
-})
-
-selectGridArea.addEventListener('click', e => {
-     const target = e.target;
-     if(e.target.classList.contains('btn')){
-          selectItem(selectGridButton,target);
-     }
-})
+printSelectedItem(themeArea, buttonsTheme);
+printSelectedItem(playerArea, buttonsNumberOfPlayers);
+printSelectedItem(selectGridArea, selectGridButtons);
 
 form.addEventListener('submit', e => {
           e.preventDefault();
