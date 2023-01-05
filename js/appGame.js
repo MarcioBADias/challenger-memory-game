@@ -22,6 +22,17 @@ const iconsCards = [
     '16-icon'
 ]
 
+const iconsCards4x4 = [
+    '01-icon',
+    '02-icon',
+    '03-icon',
+    '04-icon',
+    '05-icon',
+    '06-icon',
+    '07-icon',
+    '08-icon'
+]
+
 createElement = (tag, className) => {
     const element = document.createElement(tag);
     element.className = (className);
@@ -31,7 +42,7 @@ createElement = (tag, className) => {
 const checkEndGame = () => {
     const disabledCards = document.querySelectorAll('.disabled-card');
 
-    if(disabledCards.length === 32){
+    if(disabledCards.length === 16){
         grid.innerHTML = `O Jogo Acabou!`
     }
 }
@@ -94,7 +105,7 @@ const createCard = (iconCard) => {
 }
 
 const loadGame = () => {
-    const duplicateIconCards = [ ...iconsCards, ...iconsCards ];
+    const duplicateIconCards = [ ...iconsCards4x4, ...iconsCards4x4 ];
     const shuffledIconCards = duplicateIconCards.sort(() => Math.random() - 0.5)
 
     shuffledIconCards.forEach(iconCard => {
