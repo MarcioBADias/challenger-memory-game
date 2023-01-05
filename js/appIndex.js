@@ -27,5 +27,5 @@ printSelectedItem(selectGridArea, selectGridButtons);
 
 form.addEventListener('submit', e => {
           e.preventDefault();
-          
+          window.location = 'pages/game.html'
 })
