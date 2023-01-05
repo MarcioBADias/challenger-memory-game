@@ -1,5 +1,8 @@
 const grid = document.querySelector('.grid');
 
+let fistCard = '';
+let secondCard = '';
+
 const iconsCards = [
     '01-icon',
     '02-icon',
@@ -25,8 +28,53 @@ createElement = (tag, className) => {
     return element;
 }
 
+const checkEndGame = () => {
+    const disabledCards = document.querySelectorAll('.disabled-card');
+
+    if(disabledCards.length === 32){
+        grid.innerHTML = `O Jogo Acabou!`
+    }
+}
+
+const checkCards = () => {
+    const fistIcon = fistCard.getAttribute('data-icon');
+    const secondIcon = secondCard.getAttribute('data-icon');
+
+    if(fistIcon === secondIcon){
+        fistCard.firstChild.classList.add('disabled-card');
+        secondCard.firstChild.classList.add('disabled-card');
+        
+        fistCard = '';
+        secondCard = '';
+
+        checkEndGame();
+    } else {
+
+        setTimeout(()=>{
+            fistCard.classList.remove('reveal-card');
+            secondCard.classList.remove('reveal-card');
+            fistCard = '';
+            secondCard = '';
+        }, 600)
+    }
+}
+
 const revealCard = ({ target }) => {
-    target.parentNode.classList.add('reveal-card');
+    const clickedCard = target.parentNode;
+
+    if(clickedCard.className.includes('reveal-card')){
+        return;
+    }
+
+    if(fistCard === ''){
+        clickedCard.classList.add('reveal-card');
+        fistCard = clickedCard;
+    } else if (secondCard === ''){
+        clickedCard.classList.add('reveal-card');
+        secondCard = clickedCard;
+    }
+
+    checkCards();
 }
 
 const createCard = (iconCard) => {
@@ -39,7 +87,8 @@ const createCard = (iconCard) => {
     card.appendChild(faceFront);
     card.appendChild(faceBack);
 
-    card.addEventListener('click', revealCard)
+    card.addEventListener('click', revealCard);
+    card.setAttribute('data-icon', iconCard);
     
     return card;
 }

@@ -10,7 +10,7 @@ console.log(window)
 
 const selectItem = (item, target) => {
      item.forEach((button) => {
-          button.classList.contains('clicked') && button.classList.remove('clicked')
+          button.classList.contains('clicked') && button.classList.remove('clicked');
      })
      target.classList.add('clicked');
 }
