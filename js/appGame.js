@@ -1,10 +1,14 @@
 const grid = document.querySelector('.grid');
 const players = document.querySelectorAll('.player');
 
+const theme = localStorage.getItem('theme');
+const gridSize = localStorage.getItem('grid');
+const numberOfPlayers = Number(localStorage.getItem('players'));
+
 let fistCard = '';
 let secondCard = '';
+let playerSelected = 0;
 
-players.forEach(player => player.textContent += ' X acertos')
 
 const iconsCards = [
     '01-icon',
@@ -58,6 +62,10 @@ const checkCards = () => {
         fistCard.firstChild.classList.add('disabled-card');
         secondCard.firstChild.classList.add('disabled-card');
         
+        spanScore = players[playerSelected].querySelector('span');
+
+        spanScore.textContent++;
+
         fistCard = '';
         secondCard = '';
 
@@ -67,11 +75,23 @@ const checkCards = () => {
         setTimeout(()=>{
             fistCard.classList.remove('reveal-card');
             secondCard.classList.remove('reveal-card');
+            
+            if(playerSelected < numberOfPlayers-1){
+                players[playerSelected].classList.remove('active');
+                playerSelected++;
+                players[playerSelected].classList.add('active');
+                
+            }else {
+                players[playerSelected].classList.remove('active');
+                playerSelected = 0;
+                players[playerSelected].classList.add('active');
+            }
             fistCard = '';
             secondCard = '';
         }, 600)
     }
 }
+
 
 const revealCard = ({ target }) => {
     const clickedCard = target.parentNode;
@@ -88,7 +108,7 @@ const revealCard = ({ target }) => {
         secondCard = clickedCard;
     }
 
-    checkCards();
+    checkCards(numberOfPlayers);
 }
 
 const createCard = (iconCard) => {
@@ -103,6 +123,13 @@ const createCard = (iconCard) => {
 
     card.addEventListener('click', revealCard);
     card.setAttribute('data-icon', iconCard);
+
+    players.forEach((player, index) => {
+        if(index +1 <= numberOfPlayers){
+            player.classList.remove('disabled-card');
+        }
+    })
+    players[playerSelected].classList.add('active');
     
     return card;
 }
@@ -124,11 +151,5 @@ const loadGame = () => {
 }
 
 window.onload = () => {
-    const theme = localStorage.getItem('theme');
-    const grid = localStorage.getItem('grid');
-    const numberOfPlayers = localStorage.getItem('players');
-
-    console.log(theme, grid, numberOfPlayers);
     loadGame();
-
 }
