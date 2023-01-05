@@ -1,7 +1,10 @@
 const grid = document.querySelector('.grid');
+const players = document.querySelectorAll('.player');
 
 let fistCard = '';
 let secondCard = '';
+
+players.forEach(player => player.textContent += ' X acertos')
 
 const iconsCards = [
     '01-icon',
@@ -43,7 +46,7 @@ const checkEndGame = () => {
     const disabledCards = document.querySelectorAll('.disabled-card');
 
     if(disabledCards.length === 16){
-        grid.innerHTML = `O Jogo Acabou!`
+        window.alert(`O Jogo Acabou!`);
     }
 }
 
@@ -104,9 +107,15 @@ const createCard = (iconCard) => {
     return card;
 }
 
+// const createGrid = (grid) => {
+//     grid.style.gridTemplateColumns = `repeat(${grid}, 1fr)`
+// }
+
 const loadGame = () => {
     const duplicateIconCards = [ ...iconsCards4x4, ...iconsCards4x4 ];
     const shuffledIconCards = duplicateIconCards.sort(() => Math.random() - 0.5)
+
+    // createGrid(grid)
 
     shuffledIconCards.forEach(iconCard => {
         const card = createCard(iconCard);
@@ -114,4 +123,12 @@ const loadGame = () => {
     })
 }
 
-loadGame();
+window.onload = () => {
+    const theme = localStorage.getItem('theme');
+    const grid = localStorage.getItem('grid');
+    const numberOfPlayers = localStorage.getItem('players');
+
+    console.log(theme, grid, numberOfPlayers);
+    loadGame();
+
+}
