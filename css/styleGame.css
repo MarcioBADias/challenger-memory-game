@@ -55,7 +55,6 @@ h1{
 }
 
 .front{
-    background: url(../img/icons/02-icon.png);
     background: cover;
     transform: rotateY(180deg);
 }
@@ -66,7 +65,7 @@ h1{
     backface-visibility: hidden; 
 }
 
-.card:hover{
+.reveal-card{
     transform: rotateY(180deg);
 }
 
