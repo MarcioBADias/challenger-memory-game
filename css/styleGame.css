@@ -37,18 +37,37 @@ h1{
 
 .card{
     aspect-ratio: 1/1;
-    background-color: rgb(61, 92, 49);
-    background: url(../img/question-icon.png);
-    background-size: cover;
-    border-radius: 100%;
+    /* background-color: rgb(61, 92, 49); */
+    border-radius: 15px;
     position: relative;
     width: 100%;
-    transform: all 600ms;
+    transform: all 800ms ease;
     transform-style: preserve-3d;
 }
 
+.face{
+    border: 1px solid #333;
+    border-radius: 15px;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    transform: all 800ms ease;
+}
+
+.front{
+    background: url(../img/icons/02-icon.png);
+    background: cover;
+    transform: rotateY(180deg);
+}
+
+.back{
+    background: url(../img/back-card.png);
+    background-size: cover;
+    backface-visibility: hidden; 
+}
+
 .card:hover{
-    background-color: rgba(61, 92, 49, 0.342);
+    transform: rotateY(180deg);
 }
 
 .players-area{
