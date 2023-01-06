@@ -20,9 +20,10 @@ h1{
 
 h3{
     background-color: rgba(38, 63, 55, 0.253);
-    font-size: .9rem;
+    font-size: 1.25rem;
     padding: 1rem;
     margin: 5% 0;
+    text-align: center;
 }
 
 .grid-area{
@@ -38,8 +39,8 @@ h3{
     gap: 15px;
     grid-template-columns: repeat(4, 1fr);
     margin: 0 auto;
-    max-height: 350px;
-    max-width: 350px;
+    max-height: 500px;
+    max-width: 500px;
 }
 
 .card{
@@ -124,5 +125,7 @@ span{
 li{
     list-style-type: none;
     background-color: rgba(255, 217, 0, 0.411);
+    font-size: 1.25rem;
     padding: 1rem;
+    text-align: center;
 }

@@ -2,14 +2,14 @@ const grid = document.querySelector('.grid');
 const players = document.querySelectorAll('.player');
 
 const theme = localStorage.getItem('theme');
-const gridSize = localStorage.getItem('grid');
+const gridSize = Number(localStorage.getItem('grid'));
 const numberOfPlayers = Number(localStorage.getItem('players'));
 
 let fistCard = '';
 let secondCard = '';
 let playerSelected = 0;
 
-const iconsCards = [
+const iconsCards6x6 = [
     '01-icon',
     '02-icon',
     '03-icon',
@@ -25,7 +25,9 @@ const iconsCards = [
     '13-icon',
     '14-icon',
     '15-icon',
-    '16-icon'
+    '16-icon',
+    '17-icon',
+    '18-icon'
 ]
 
 const iconsCards4x4 = [
@@ -160,21 +162,24 @@ const createCard = (iconCard) => {
     return card;
 }
 
-// const createGrid = (grid) => {
-//     grid.style.gridTemplateColumns = `repeat(${grid}, 1fr)`
-// }
-
-const loadGame = () => {
-    const duplicateIconCards = [ ...iconsCards4x4, ...iconsCards4x4 ];
+const openGame = (deck = []) => {
+    const duplicateIconCards = [ ...deck, ...deck ];
     const shuffledIconCards = duplicateIconCards.sort(() => Math.random() - 0.5)
-
-    // createGrid(grid)
 
     shuffledIconCards.forEach(iconCard => {
         const card = createCard(iconCard);
         grid.appendChild(card);
     })
+}
+
+const loadGame = () => {
+    grid.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+
+    gridSize === 4 && openGame(iconsCards4x4);
+    gridSize === 6 && openGame(iconsCards6x6);    
+
     players[0].classList.remove('disabled-player');
+    console.log(gridSize)
 }
 
 window.onload = () => {
