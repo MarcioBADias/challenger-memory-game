@@ -70,16 +70,18 @@ const numbersCards6x6 = [
     '13-number',
     '14-number',
     '15-number',
-    '16-number'
+    '16-number',
+    '17-number',
+    '18-number'
 ];
 
-createElement = (tag, className) => {
+const createElement = (tag, className) => {
     const element = document.createElement(tag);
     element.className = (className);
     return element;
 }
 
-createFinalScore = () => {
+const createFinalScore = () => {
     const ul = createElement('ul', 'rank-final');
     const li = createElement('li', 'rank-player');
 
