@@ -93,6 +93,8 @@ const createFinalScore = () => {
         finalScores.push({'player': `${namePlayer}`,'score': `${finalPlayerScore}`});
     }
 
+    players.forEach(getFinalScores);
+
     const orderingARank = (a,b)=>{
         if(a.score > b.score){
             return -1;
@@ -117,7 +119,6 @@ const createFinalScore = () => {
         grid.appendChild(ul)
     }
 
-    players.forEach(getFinalScores);
     finalScoresInOrder.forEach(createARank);
     
     showFinalRank();
