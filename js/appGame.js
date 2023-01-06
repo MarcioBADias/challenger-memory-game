@@ -9,6 +9,19 @@ let fistCard = '';
 let secondCard = '';
 let playerSelected = 0;
 
+
+
+const iconsCards4x4 = [
+    '01-icon',
+    '02-icon',
+    '03-icon',
+    '04-icon',
+    '05-icon',
+    '06-icon',
+    '07-icon',
+    '08-icon'
+]
+
 const iconsCards6x6 = [
     '01-icon',
     '02-icon',
@@ -30,16 +43,35 @@ const iconsCards6x6 = [
     '18-icon'
 ]
 
-const iconsCards4x4 = [
-    '01-icon',
-    '02-icon',
-    '03-icon',
-    '04-icon',
-    '05-icon',
-    '06-icon',
-    '07-icon',
-    '08-icon'
-]
+const numbersCards4x4 = [
+    '01-number',
+    '02-number',
+    '03-number',
+    '04-number',
+    '05-number',
+    '06-number',
+    '07-number',
+    '08-number'
+];
+
+const numbersCards6x6 = [
+    '01-number',
+    '02-number',
+    '03-number',
+    '04-number',
+    '05-number',
+    '06-number',
+    '07-number',
+    '08-number',
+    '09-number',
+    '10-number',
+    '11-number',
+    '12-number',
+    '13-number',
+    '14-number',
+    '15-number',
+    '16-number'
+];
 
 createElement = (tag, className) => {
     const element = document.createElement(tag);
@@ -47,92 +79,125 @@ createElement = (tag, className) => {
     return element;
 }
 
+createFinalScore = () => {
+    const ul = createElement('ul', 'rank-final');
+    const li = createElement('li', 'rank-player');
 
-const checkEndGame = () => {
-    const disabledCards = document.querySelectorAll('.disabled-card');
-    
-    if(disabledCards.length === 16){
-        const ul = createElement('ul', 'rank-final');
-        const li = createElement('li', 'rank-player');
-        let finalScores = [];
-        players.forEach(player => {
-            const namePlayer = player.getAttribute('data-player');
-            const finalPlayerScore = player.querySelector('span').textContent;
-            finalScores.push({'player': `${namePlayer}`,'score': `${finalPlayerScore}`});
-        })
-        const finalScoresInOrder = finalScores.sort((a,b)=>{
-            if(a.score > b.score){
-                return -1;
-            }
-            if(a.score < b.score){
-                return 1;
-            }
-            return 0;
-        })
+    let finalScores = [];
 
-        finalScoresInOrder.forEach(finalScore =>{
-            li.textContent += ` ${finalScore.player}: ${finalScore.score} acertos`;
-            ul.appendChild(li);
-        });
+    const getFinalScores = player => {
+        const namePlayer = player.getAttribute('data-player');
+        const finalPlayerScore = player.querySelector('span').textContent;
+        finalScores.push({'player': `${namePlayer}`,'score': `${finalPlayerScore}`});
+    }
+
+    const orderingARank = (a,b)=>{
+        if(a.score > b.score){
+            return -1;
+        }
+        if(a.score < b.score){
+            return 1;
+        }
+        return 0;
+    }
+
+    const finalScoresInOrder = finalScores.sort(orderingARank);
+
+    const createARank = finalScore =>{
+        li.textContent += ` ${finalScore.player}: ${finalScore.score} acertos`;
+        ul.appendChild(li);
+    }
+
+    const showFinalRank = () => {
         grid.innerHTML = '';
         grid.style.display = 'block';
         grid.innerHTML = `<h3> Fim de jogo! Veja abaixo os resultados:</h3>`
-        grid.appendChild(ul);
-        
+        grid.appendChild(ul)
     }
+
+    players.forEach(getFinalScores);
+    finalScoresInOrder.forEach(createARank);
+    
+    showFinalRank();
+}
+
+const checkEndGame = () => {
+    const disabledCards = document.querySelectorAll('.disabled-card');
+    const endGame = disabledCards.length === gridSize*gridSize;
+
+    endGame && createFinalScore();
 }
 
 const checkCards = () => {
     const fistIcon = fistCard.getAttribute('data-icon');
     const secondIcon = secondCard.getAttribute('data-icon');
-
-    if(fistIcon === secondIcon){
-        fistCard.firstChild.classList.add('disabled-card');
-        secondCard.firstChild.classList.add('disabled-card');
-        
+    const isMacth = fistIcon === secondIcon;
+    const isValidPlayer = playerSelected < numberOfPlayers-1;
+    
+    const scoring = () => {
         spanScore = players[playerSelected].querySelector('span');
-
         spanScore.textContent++;
+    }
 
+    const foundedCard = element => element.firstChild.classList.add('disabled-card');
+    const hideCard = element => element.classList.remove('reveal-card');
+    
+    const resetfoundedCards = () => {
         fistCard = '';
         secondCard = '';
+    }
+
+    const passTurn = element => element.classList.remove('active');
+    const activeTurn = element => element.classList.add('active')
+
+    if(isMacth){
+        foundedCard(fistCard);
+        foundedCard(secondCard);
+        
+        scoring();
+
+        resetfoundedCards();
 
         checkEndGame();
     } else {
-
         setTimeout(()=>{
-            fistCard.classList.remove('reveal-card');
-            secondCard.classList.remove('reveal-card');
+            hideCard(fistCard);
+            hideCard(secondCard);
             
-            if(playerSelected < numberOfPlayers-1){
-                players[playerSelected].classList.remove('active');
+            if(isValidPlayer){
+                passTurn(players[playerSelected]);
                 playerSelected++;
-                players[playerSelected].classList.add('active');
+                activeTurn(players[playerSelected]);
                 
             }else {
-                players[playerSelected].classList.remove('active');
+                passTurn(players[playerSelected]);
                 playerSelected = 0;
-                players[playerSelected].classList.add('active');
+                activeTurn(players[playerSelected]);
             }
-            fistCard = '';
-            secondCard = '';
+            
+            resetfoundedCards();
+
         }, 600)
     }
 }
 
-
 const revealCard = ({ target }) => {
     const clickedCard = target.parentNode;
+    const isARevealedCard = clickedCard.className.includes('reveal-card');
+    const fistCardIsClosed = fistCard === '';
+    const secondCardIsClosed = secondCard === '';
 
-    if(clickedCard.className.includes('reveal-card')){
+    const showCard = element => element.classList.add('reveal-card');
+
+    if(isARevealedCard){
         return;
     }
 
-    if(fistCard === ''){
-        clickedCard.classList.add('reveal-card');
+    if(fistCardIsClosed){
+        showCard(clickedCard);
         fistCard = clickedCard;
-    } else if (secondCard === ''){
-        clickedCard.classList.add('reveal-card');
+    } else if (secondCardIsClosed){
+        showCard(clickedCard);
         secondCard = clickedCard;
     }
 
@@ -144,6 +209,12 @@ const createCard = (iconCard) => {
     const faceFront = createElement('div','face front');
     const faceBack = createElement('div','face back');
 
+    const changingPlayer = (player, index) => {
+        if(index +1 <= numberOfPlayers){
+            player.classList.remove('disabled-player');
+        }
+    }
+
     faceFront.style.backgroundImage = `url(../img/icons/${iconCard}.png)`;
 
     card.appendChild(faceFront);
@@ -152,36 +223,41 @@ const createCard = (iconCard) => {
     card.addEventListener('click', revealCard);
     card.setAttribute('data-icon', iconCard);
 
-    players.forEach((player, index) => {
-        if(index +1 <= numberOfPlayers){
-            player.classList.remove('disabled-player');
-        }
-    })
+    players.forEach(changingPlayer)
     players[playerSelected].classList.add('active');
     
     return card;
 }
 
 const openGame = (deck = []) => {
-    const duplicateIconCards = [ ...deck, ...deck ];
-    const shuffledIconCards = duplicateIconCards.sort(() => Math.random() - 0.5)
-
-    shuffledIconCards.forEach(iconCard => {
+    const duplicateCards = [ ...deck, ...deck ];
+    const shuffledCards = duplicateCards.sort(() => Math.random() - 0.5)
+    const drawRandomCard = iconCard => {
         const card = createCard(iconCard);
         grid.appendChild(card);
-    })
+    }
+    shuffledCards.forEach(drawRandomCard)
+}
+
+const setThemeAndGrid = (theme, gridSize) => {
+    if(theme === 'number'){
+        gridSize === 4 && openGame(numbersCards4x4);
+        gridSize === 6 && openGame(numbersCards6x6);
+        return
+    }
+    if(theme === 'icon'){
+        gridSize === 4 && openGame(iconsCards4x4);
+        gridSize === 6 && openGame(iconsCards6x6);    
+        return
+    }
 }
 
 const loadGame = () => {
-    grid.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
-
-    gridSize === 4 && openGame(iconsCards4x4);
-    gridSize === 6 && openGame(iconsCards6x6);    
-
-    players[0].classList.remove('disabled-player');
-    console.log(gridSize)
+    grid.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`; //Aplica o tamanho do grid
+    setThemeAndGrid(theme, gridSize);
+    players[0].classList.remove('disabled-player'); //ativa o player 1
+    
 }
 
-window.onload = () => {
-    loadGame();
-}
+loadGame();
+
