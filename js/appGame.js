@@ -9,7 +9,6 @@ let fistCard = '';
 let secondCard = '';
 let playerSelected = 0;
 
-
 const iconsCards = [
     '01-icon',
     '02-icon',
@@ -46,11 +45,38 @@ createElement = (tag, className) => {
     return element;
 }
 
+
 const checkEndGame = () => {
     const disabledCards = document.querySelectorAll('.disabled-card');
-
+    
     if(disabledCards.length === 16){
-        window.alert(`O Jogo Acabou!`);
+        const ul = createElement('ul', 'rank-final');
+        const li = createElement('li', 'rank-player');
+        let finalScores = [];
+        players.forEach(player => {
+            const namePlayer = player.getAttribute('data-player');
+            const finalPlayerScore = player.querySelector('span').textContent;
+            finalScores.push({'player': `${namePlayer}`,'score': `${finalPlayerScore}`});
+        })
+        const finalScoresInOrder = finalScores.sort((a,b)=>{
+            if(a.score > b.score){
+                return -1;
+            }
+            if(a.score < b.score){
+                return 1;
+            }
+            return 0;
+        })
+
+        finalScoresInOrder.forEach(finalScore =>{
+            li.textContent += ` ${finalScore.player}: ${finalScore.score} acertos`;
+            ul.appendChild(li);
+        });
+        grid.innerHTML = '';
+        grid.style.display = 'block';
+        grid.innerHTML = `<h3> Fim de jogo! Veja abaixo os resultados:</h3>`
+        grid.appendChild(ul);
+        
     }
 }
 
@@ -126,7 +152,7 @@ const createCard = (iconCard) => {
 
     players.forEach((player, index) => {
         if(index +1 <= numberOfPlayers){
-            player.classList.remove('disabled-card');
+            player.classList.remove('disabled-player');
         }
     })
     players[playerSelected].classList.add('active');
@@ -148,6 +174,7 @@ const loadGame = () => {
         const card = createCard(iconCard);
         grid.appendChild(card);
     })
+    players[0].classList.remove('disabled-player');
 }
 
 window.onload = () => {

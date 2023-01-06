@@ -18,6 +18,13 @@ h1{
     margin: 5vh 0;
 }
 
+h3{
+    background-color: rgba(38, 63, 55, 0.253);
+    font-size: .9rem;
+    padding: 1rem;
+    margin: 5% 0;
+}
+
 .grid-area{
     background-color: white;
     border-radius: 20px;
@@ -71,7 +78,7 @@ h1{
     transform: rotateY(180deg);
 }
 
-.disabled-card{
+.disabled-card, .disabled-player{
     filter: saturate(0);
     opacity: 0.5;
 }
@@ -92,6 +99,7 @@ h1{
     margin: 0 auto;
     max-height: 600px;
     max-width: 600px;
+    text-align: center;
 }
 
 .player{
@@ -102,8 +110,19 @@ h1{
     padding: 5px;
 }
 
+span{
+    font-size: 2rem;
+    text-align: center;
+}
+
 .active{
     background-color: rgba(61, 92, 49, 0.8);
     border: 3px solid gold;
     color: gold;
+}
+
+li{
+    list-style-type: none;
+    background-color: rgba(255, 217, 0, 0.411);
+    padding: 1rem;
 }
