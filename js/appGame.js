@@ -1,5 +1,7 @@
 const grid = document.querySelector('.grid');
 const players = document.querySelectorAll('.player');
+const resetButton = document.querySelector('.btn-reset');
+const scores = document.querySelectorAll('span');
 
 const theme = localStorage.getItem('theme');
 const gridSize = Number(localStorage.getItem('grid'));
@@ -138,7 +140,7 @@ const checkCards = () => {
     const isValidPlayer = playerSelected < numberOfPlayers-1;
     
     const scoring = () => {
-        spanScore = players[playerSelected].querySelector('span');
+        let spanScore = players[playerSelected].querySelector('span');
         spanScore.textContent++;
     }
 
@@ -263,4 +265,23 @@ const loadGame = () => {
 }
 
 loadGame();
+
+const resetCounters = (scores) =>{
+    grid.innerHTML = ''
+    fistCard = '';
+    secondCard = '';
+    players[playerSelected].classList.remove('active');
+    playerSelected = 0;
+    finalScores = [];
+    scores.forEach(score => score.textContent = 0)
+}
+
+resetButton.addEventListener('click', e => {
+    e.preventDefault();
+    resetCounters(scores);
+        
+    loadGame();
+})
+
+
 

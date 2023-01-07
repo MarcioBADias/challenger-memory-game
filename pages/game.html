@@ -9,12 +9,18 @@
 <body>
     <main>
         <h1>Memory Game</h1>
-        
-        <div class="grid-area">
-            <div class="grid">
+        <section class="bnt-area">
+            <div>
+                <button class="btn"><a href="../index.html">New Game</a></button>
             </div>
-        </div>
-        <div class="players-area">
+            <div>
+                <button class="btn btn-reset">Reset Game</button>
+            </div>
+        </section>
+        <section class="grid-area">
+            <div class="grid"></div>
+        </section>
+        <section class="players-area">
             <div class="players-card">
                 <div data-player="player 1" class="player disabled-player">
                     <p>Player 1 <br>acertos:</p><br><span class="score">0</span>
@@ -29,15 +35,9 @@
                     <p>Player 4 <br>acertos:</p><br><span class="score">0</span>
                 </div>
             </div>
-        </div>
-        <div class="bnt-area">
-            <div>
-                <button class="btn">New Game</button>
-            </div>
-            <div>
-                <button class="btn">Reset</button>
-            </div>
-        </div>
+        </section>
+
+        <footer>© Marcius Code</footer>
     </main>
 </body>
 </html>

@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 *{
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
     font-family:'Press Start 2P';
+    margin: 0;
+    padding: 0;
 }
 
 body{
@@ -43,9 +43,10 @@ button{
     border: none;
     border-radius: 30px;
     color: white;
+    cursor: pointer;
     margin: 20px 10px;
-    width: 40%;
     padding: .5rem 1rem;
+    width: 40%;
 }
 
 .clicked{
