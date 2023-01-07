@@ -31,10 +31,12 @@ button, a{
     border: none;
     border-radius: 30px;
     color: rgba(61, 92, 49);
-    cursor: pointer;
     padding: 1rem;
     text-decoration: none;
     width: 100%;
+}
+button,.card:hover{
+    cursor: pointer;
 }
 
 h3{
@@ -65,7 +67,6 @@ h3{
 .card{
     aspect-ratio: 1/1;
     border-radius: 100%;
-    cursor: pointer;
     position: relative;
     transform: all 800ms ease;
     transform-style: preserve-3d;
