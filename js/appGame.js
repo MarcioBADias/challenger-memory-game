@@ -268,6 +268,7 @@ loadGame();
 
 const resetCounters = (scores) =>{
     grid.innerHTML = ''
+    grid.style.display = 'grid';
     fistCard = '';
     secondCard = '';
     players[playerSelected].classList.remove('active');
